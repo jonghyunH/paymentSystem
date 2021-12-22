@@ -8,8 +8,8 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ssafy</groupId>
-	<artifactId>vue</artifactId>
+	<groupId>com.payment</groupId>
+	<artifactId>system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>Payment System</name>
