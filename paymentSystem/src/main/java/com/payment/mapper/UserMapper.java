@@ -7,4 +7,5 @@ import com.payment.model.UserDto;
 @Mapper
 public interface UserMapper {
 	public int signUp(UserDto userDto);
+	public void userModify(UserDto userDto);
 }

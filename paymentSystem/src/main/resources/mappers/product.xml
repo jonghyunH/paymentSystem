@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.payment.mapper.ProductMapper">
+		<insert id="productRegist" parameterType="ProductDto">
+			insert into product (product_id, title, price, image, created_at, modified_at)
+			values (#{product_id}, #{title}, #{price}, #{image}, now(), now())
+		</insert>
+		
+		<select id="productList" parameterType="ProductDto" resultType="ProductDto">
+			select product_id, title, price, image, created_at, modified_at
+			from product
+		</select>
+		
+		<delete id="productDelete" parameterType="int">
+			delete from product where product_id = #{product_id}
+		</delete>
+	</mapper>
+	

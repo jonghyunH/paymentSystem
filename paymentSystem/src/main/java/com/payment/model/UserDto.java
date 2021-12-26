@@ -1,33 +1,34 @@
 package com.payment.model;
 
 public class UserDto {
-	private int pk;
+	private int user_id;
 	private String name;
 	private String password;
 	private String email;
-	private String create_at;
+	private String created_at;
 	private String modified_at;
+	
 	
 	public UserDto() {
 		super();
 	}
 
-	public UserDto(int pk, String name, String password, String email, String create_at, String modified_at) {
+	public UserDto(int user_id, String name, String password, String email, String created_at, String modified_at) {
 		super();
-		this.pk = pk;
+		this.user_id = user_id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.create_at = create_at;
+		this.created_at = created_at;
 		this.modified_at = modified_at;
 	}
 
-	public int getPk() {
-		return pk;
+	public int getUser_id() {
+		return user_id;
 	}
 
-	public void setPk(int pk) {
-		this.pk = pk;
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getName() {
@@ -54,12 +55,12 @@ public class UserDto {
 		this.email = email;
 	}
 
-	public String getCreate_at() {
-		return create_at;
+	public String getCreated_at() {
+		return created_at;
 	}
 
-	public void setCreate_at(String create_at) {
-		this.create_at = create_at;
+	public void setCreated_at(String created_at) {
+		this.created_at = created_at;
 	}
 
 	public String getModified_at() {
@@ -72,9 +73,8 @@ public class UserDto {
 
 	@Override
 	public String toString() {
-		return "UserDto [pk=" + pk + ", name=" + name + ", password=" + password + ", email=" + email + ", create_at="
-				+ create_at + ", modified_at=" + modified_at + "]";
+		return "UserDto [user_id=" + user_id + ", name=" + name + ", password=" + password + ", email=" + email
+				+ ", created_at=" + created_at + ", modified_at=" + modified_at + "]";
 	}
-	
 	
 }

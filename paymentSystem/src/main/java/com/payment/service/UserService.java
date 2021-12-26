@@ -16,4 +16,8 @@ public class UserService {
 	public boolean signUp(UserDto userDto) throws Exception {
 		return sqlSession.getMapper(UserMapper.class).signUp(userDto) == 1;
 	}
+
+	public void userModify(UserDto userDto) {
+		sqlSession.getMapper(UserMapper.class).userModify(userDto);
+	}
 }
