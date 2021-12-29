@@ -12,5 +12,10 @@
 			update user set name = #{name}, password = #{password}
 			where email = #{email}
 		</update>
+		
+		<select id="login" parameterType="userDto" resultType="userDto">
+			select user_id, name, email, password, created_at, modified_at from user
+			where email = #{email} and password = #{password}
+		</select>
 	</mapper>
 	

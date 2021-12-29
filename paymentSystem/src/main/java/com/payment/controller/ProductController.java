@@ -40,6 +40,12 @@ public class ProductController {
 		return new ResponseEntity<List<ProductDto>>(productService.productList(), HttpStatus.OK); 
 	}
 	
+	@ApiOperation(value = "상품 검색", notes = "상품 검색", response = String.class)
+	@GetMapping("{product_title}")
+	public ResponseEntity<List<ProductDto>> productSearch(@PathVariable @ApiParam(value="상품 검색", required = true) String product_title) throws Exception{
+		return new ResponseEntity<List<ProductDto>>(productService.productSearch(product_title), HttpStatus.OK); 
+	}
+	
 	@ApiOperation(value = "상품 삭제", notes = "상품 삭제", response = String.class)
 	@DeleteMapping("/{product_id}")
 	public ResponseEntity<String> productDelete(@PathVariable @ApiParam(value="상품 삭제", required = true) int product_id){
@@ -47,5 +53,11 @@ public class ProductController {
 			return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
+	}
+	
+	@ApiOperation(value = "카카오페이로 상품 구입", notes = "카카오페이로 상품 구입", response = String.class)
+	@PostMapping("{kakaoPay}")
+	public ResponseEntity<String> productPurchase(@RequestBody @ApiParam(value="상품 구입", required = true) ProductDto productDto) throws Exception{
+		return new ResponseEntity<String>(productService.productPurchase(productDto), HttpStatus.OK);
 	}
 }

@@ -10,5 +10,6 @@ import com.payment.model.ProductDto;
 public interface ProductMapper {
 	public int productRegist(ProductDto productDto);
 	public List<ProductDto> productList();
-	public boolean productDelete(int product_id); 
+	public boolean productDelete(int product_id);
+	public List<ProductDto> productSearch(String product_title); 
 }

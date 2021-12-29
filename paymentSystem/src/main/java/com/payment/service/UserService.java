@@ -20,4 +20,8 @@ public class UserService {
 	public void userModify(UserDto userDto) {
 		sqlSession.getMapper(UserMapper.class).userModify(userDto);
 	}
+
+	public UserDto login(UserDto userDto) {
+		return sqlSession.getMapper(UserMapper.class).login(userDto);
+	}
 }

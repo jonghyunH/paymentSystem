@@ -8,4 +8,5 @@ import com.payment.model.UserDto;
 public interface UserMapper {
 	public int signUp(UserDto userDto);
 	public void userModify(UserDto userDto);
+	public UserDto login(UserDto userDto);
 }

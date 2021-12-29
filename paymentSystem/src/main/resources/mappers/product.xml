@@ -16,5 +16,10 @@
 		<delete id="productDelete" parameterType="int">
 			delete from product where product_id = #{product_id}
 		</delete>
+		
+		<select id="productSearch" parameterType="String" resultType="ProductDto">
+			select product_id, title, price, image, created_at, modified_at
+			from product where title = #{product_title}
+		</select>
 	</mapper>
 	

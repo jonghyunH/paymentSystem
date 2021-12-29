@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.payment.mapper.ProductMapper;
 import com.payment.mapper.UserMapper;
@@ -25,5 +27,16 @@ public class ProductService {
 
 	public boolean productDelete(int product_id) {
 		return sqlSession.getMapper(ProductMapper.class).productDelete(product_id);
+	}
+
+	public List<ProductDto> productSearch(String product_title) {
+		return sqlSession.getMapper(ProductMapper.class).productSearch(product_title);
+	}
+
+	public String productPurchase(ProductDto productDto) {
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "KakaoAK " + "6b21dce00e489cd6688085418194a14d");
+		return "";
 	}
 }
