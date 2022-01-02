@@ -4,8 +4,8 @@
 	
 	<mapper namespace="com.payment.mapper.UserMapper">
 		<insert id="signUp" parameterType="userDto">
-			insert into user (user_id, name, email, password, created_at, modified_at)
-			values (#{user_id}, #{name}, #{email}, #{password}, now(), now())
+			insert into user (name, email, password, created_at, modified_at)
+			values (#{name}, #{email}, #{password}, now(), now())
 		</insert>
 		
 		<update id="userModify" parameterType="userDto">
@@ -16,6 +16,11 @@
 		<select id="login" parameterType="userDto" resultType="userDto">
 			select user_id, name, email, password, created_at, modified_at from user
 			where email = #{email} and password = #{password}
+		</select>
+		
+		<select id="userSearch" parameterType="String" resultType="userDto">
+			select name, email, password from user
+			where email = #{email}
 		</select>
 	</mapper>
 	

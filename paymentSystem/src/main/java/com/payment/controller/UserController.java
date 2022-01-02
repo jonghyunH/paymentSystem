@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiParam;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private JwtService jwtService;
 	
@@ -47,7 +46,7 @@ public class UserController {
 	
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지 반환", response = Map.class)
 	@PostMapping("/login")
-	public ResponseEntity<Map<String,Object>> login(@RequestBody @ApiParam(value = "아이디, 비밀번호", required = true) UserDto userDto){
+	public ResponseEntity<Map<String,Object>> login(@RequestBody @ApiParam(value = "이메일, 비밀번호", required = true) UserDto userDto){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			UserDto loginUser = userService.login(userDto);

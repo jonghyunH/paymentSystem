@@ -24,4 +24,8 @@ public class UserService {
 	public UserDto login(UserDto userDto) {
 		return sqlSession.getMapper(UserMapper.class).login(userDto);
 	}
+	
+	public UserDto userSearch(String email) {
+		return sqlSession.getMapper(UserMapper.class).userSearch(email);
+	}
 }
