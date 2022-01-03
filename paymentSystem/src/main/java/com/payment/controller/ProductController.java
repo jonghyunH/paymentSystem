@@ -33,9 +33,15 @@ public class ProductController {
 	
 	@ApiOperation(value = "상품 등록", notes = "상품 등록", response = String.class)
 	@PostMapping
-	public ResponseEntity<String> productRegist(@RequestBody @ApiParam(value="상품 등록", required = true) ProductDto productDto) throws Exception{
-		if(productService.productRegist(productDto)) {
-			return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	public ResponseEntity<String> productRegist(@RequestBody @ApiParam(value="상품 등록", required = true) ProductDto productDto, HttpServletRequest request) throws Exception{
+		String token = request.getHeader("Authorization");
+		if(jwtService.validateToken(token)){
+			if(productService.productRegist(productDto)) {
+				return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}
+			else {
+				return new ResponseEntity<String>("FAIL", HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+			}
 		}
 		return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 	}
@@ -43,22 +49,31 @@ public class ProductController {
 	@ApiOperation(value = "상품 목록", notes = "상품 목록", response = String.class)
 	@GetMapping
 	public ResponseEntity<List<ProductDto>> productList(HttpServletRequest request) throws Exception{
-		System.out.println(jwtService.validateToken(request.getHeader("Authorization")));
-		jwtService.getUserPk(request.getHeader("Authorization"));
-		return new ResponseEntity<List<ProductDto>>(productService.productList(), HttpStatus.OK); 
+		String token = request.getHeader("Authorization");
+		if(jwtService.validateToken(token)){
+			return new ResponseEntity<List<ProductDto>>(productService.productList(), HttpStatus.OK); 
+		}
+		return new ResponseEntity<List<ProductDto>>(HttpStatus.NON_AUTHORITATIVE_INFORMATION);
 	}
 	
 	@ApiOperation(value = "상품 검색", notes = "상품 검색", response = String.class)
 	@GetMapping("{product_title}")
-	public ResponseEntity<List<ProductDto>> productSearch(@PathVariable @ApiParam(value="상품 검색", required = true) String product_title) throws Exception{
-		return new ResponseEntity<List<ProductDto>>(productService.productSearch(product_title), HttpStatus.OK); 
+	public ResponseEntity<List<ProductDto>> productSearch(@PathVariable @ApiParam(value="상품 검색", required = true) String product_title, HttpServletRequest request) throws Exception{
+		String token = request.getHeader("Authorization");
+		if(jwtService.validateToken(token)){
+			return new ResponseEntity<List<ProductDto>>(productService.productSearch(product_title), HttpStatus.OK); 
+		}
+		return new ResponseEntity<List<ProductDto>>(HttpStatus.NON_AUTHORITATIVE_INFORMATION); 
 	}
 	
 	@ApiOperation(value = "상품 삭제", notes = "상품 삭제", response = String.class)
 	@DeleteMapping("/{product_id}")
-	public ResponseEntity<String> productDelete(@PathVariable @ApiParam(value="상품 삭제", required = true) int product_id){
-		if(productService.productDelete(product_id)) {
-			return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	public ResponseEntity<String> productDelete(@PathVariable @ApiParam(value="상품 삭제", required = true) int product_id, HttpServletRequest request){
+		String token = request.getHeader("Authorization");
+		if(jwtService.validateToken(token)){
+			if(productService.productDelete(product_id)) {
+				return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+			}
 		}
 		return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 	}

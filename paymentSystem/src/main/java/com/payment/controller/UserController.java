@@ -3,6 +3,8 @@ package com.payment.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,15 +41,26 @@ public class UserController {
 	
 	@ApiOperation(value="회원 정보 수정", notes="회원 정보 입력 후 수정", response=String.class)
 	@PutMapping
-	public ResponseEntity<String> userModify(@RequestBody UserDto userDto) throws Exception {
-		userService.userModify(userDto);
-		return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+	public ResponseEntity<String> userModify(String name, String password, HttpServletRequest request) throws Exception {
+		String token = request.getHeader("Authorization");
+		if(jwtService.validateToken(token)) {
+			UserDto userDto = jwtService.getUserPk(token);
+			userDto.setName(name);
+			userDto.setPassword(password);
+			System.out.println();
+			userService.userModify(userDto);
+			return new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		};
+		return new ResponseEntity<String>("FAIL", HttpStatus.NO_CONTENT);
 	}
 	
 	@ApiOperation(value = "로그인", notes = "Access-token과 로그인 결과 메세지 반환", response = Map.class)
 	@PostMapping("/login")
-	public ResponseEntity<Map<String,Object>> login(@RequestBody @ApiParam(value = "이메일, 비밀번호", required = true) UserDto userDto){
+	public ResponseEntity<Map<String,Object>> login(String email, String password){
 		Map<String, Object> resultMap = new HashMap<>();
+		UserDto userDto = new UserDto();
+		userDto.setEmail(email);
+		userDto.setPassword(password);
 		try {
 			UserDto loginUser = userService.login(userDto);
 			if(loginUser != null) {

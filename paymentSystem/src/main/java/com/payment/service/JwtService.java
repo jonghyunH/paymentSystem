@@ -47,13 +47,14 @@ public class JwtService {
 	}
     
     // 토큰에서 회원 정보 추출
-    public LinkedHashMap getUserPk(String token) {
+    public UserDto getUserPk(String token) {
     	LinkedHashMap linkedHashMap = new LinkedHashMap();
     	linkedHashMap = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("loginUser",LinkedHashMap.class);
-    	System.out.println(linkedHashMap.get("name"));
-    	System.out.println(linkedHashMap.get("email"));
-    	System.out.println(linkedHashMap.get("password"));
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().get("loginUser",LinkedHashMap.class);
+    	UserDto userDto = new UserDto();
+    	userDto.setName(linkedHashMap.get("name").toString());
+    	userDto.setEmail(linkedHashMap.get("email").toString());
+    	userDto.setPassword(linkedHashMap.get("password").toString());
+        return userDto;
     }
 
     // 토큰의 유효성 + 만료일자 확인
